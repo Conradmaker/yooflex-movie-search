@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Summary = styled.ul`
   display: flex;
@@ -93,28 +94,47 @@ const InfoContainer = styled.div`
   height: 100vh;
 `;
 
-function ListItems({ image, subtitle, title, pubDate, actor, userRating }) {
+function ListItems({
+  poster_path,
+  original_title,
+  title,
+  pubDate,
+  release_date,
+  vote_average,
+  id,
+  backdrop_path,
+}) {
   return (
-    <ListItem>
-      <img src={`${image}`} alt="포스터" srcset="" />
-      <Summary>
-        <li>
-          <h1>{title.replace(/<b>/gi, "").replace(/<\/b>/gi, "")}</h1>
-        </li>
-        <li>
-          <small>{pubDate}</small>
-        </li>
-        <li>
-          <small>{subtitle.replace(/<b>/gi, "").replace(/<\/b>/gi, "")}</small>
-        </li>
-        <li>
-          <span>출연:{actor.substring(15, 0)}...</span>
-        </li>
-        <li>
-          <strong>{userRating} / 10</strong>
-        </li>
-      </Summary>
-    </ListItem>
+    <Link to={`/detail${backdrop_path}`}>
+      <ListItem>
+        <img
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/original${poster_path}`
+              : "noImg"
+          }
+          alt="포스터"
+          srcset=""
+        />
+        <Summary>
+          <li>
+            <h1>{title}</h1>
+          </li>
+          <li>
+            <small>{pubDate}</small>
+          </li>
+          <li>
+            <small>{original_title}</small>
+          </li>
+          <li>
+            <span>release: {release_date}</span>
+          </li>
+          <li>
+            <strong>{vote_average} / 10</strong>
+          </li>
+        </Summary>
+      </ListItem>
+    </Link>
   );
 }
 function SearchList({ items }) {
@@ -122,13 +142,15 @@ function SearchList({ items }) {
     <ListContainer>
       {items.map((item) => (
         <ListItems
-          key={item.link}
-          image={item.image}
-          subtitle={item.subtitle}
+          key={item.id}
+          id={item.id}
+          poster_path={item.poster_path}
+          original_title={item.original_title}
           title={item.title}
           pubDate={item.pubDate}
-          actor={item.actor}
-          userRating={item.userRating}
+          release_date={item.release_date}
+          vote_average={item.vote_average}
+          backdrop_path={item.backdrop_path}
         />
       ))}
     </ListContainer>
@@ -142,7 +164,7 @@ export default function Information({ lists, items, text }) {
           <strong>{text}</strong> 검색결과
         </h1>
         <small>
-          <strong>{lists.display}</strong> 개의 결과가 있습니다.
+          <strong>{lists.total_results}</strong> 개의 결과가 있습니다.
         </small>
       </Title>
       <SearchList items={items} />
