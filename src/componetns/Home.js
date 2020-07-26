@@ -112,9 +112,10 @@ export default function Home({ movies, movie }) {
             onChange={onChange}
             value={text}
           />
-          <button>
-            <Link to={`/search/${text}`}>검색</Link>
-          </button>
+
+          <Link to={`/search/${text}`}>
+            <button type="submit">검색 </button>
+          </Link>
         </Search>
       </LeftBox>
       <Ranking>
