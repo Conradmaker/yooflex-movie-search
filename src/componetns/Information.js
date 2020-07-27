@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { GoHome } from "../App";
 
 const Summary = styled.ul`
   display: flex;
@@ -185,7 +186,7 @@ function SearchList({ items }) {
     </ListContainer>
   );
 }
-export default function Information({ lists, items, text }) {
+export default function Information({ lists, items, text, goHome }) {
   return (
     <InfoContainer>
       <Title>
@@ -197,6 +198,7 @@ export default function Information({ lists, items, text }) {
         </small>
       </Title>
       <SearchList items={items} />
+      <GoHome onClick={goHome}>Home</GoHome>
     </InfoContainer>
   );
 }

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const slide = keyframes`
 from{
@@ -136,11 +137,9 @@ function ListItem({ rank, movieNm, audiAcc, audiCnt }) {
   );
 }
 
-export default function Home({ movies, movie }) {
-  const [text, setText] = useState("");
-  const onChange = (e) => {
-    setText(e.target.value);
-  };
+export default function Home({ movies, movie, onChan }) {
+  const { text } = useSelector((state) => state.movie);
+
   return (
     <HomeContainer>
       <LeftBox>
@@ -150,7 +149,7 @@ export default function Home({ movies, movie }) {
         <Search>
           <input
             placeholder="제목을 입력하세요"
-            onChange={onChange}
+            onChange={onChan}
             value={text}
           />
 

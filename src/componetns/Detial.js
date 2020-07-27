@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { Goback, GoHome } from "../App";
 
 const zoom = keyframes`
 from{
@@ -64,7 +65,7 @@ const InfoImg = styled.div`
     left: 20px;
     animation: ${zoom} 0.2s ease-in;
     ${(props) =>
-      props.open &&
+      props.poster &&
       css`
         display: initial;
       `}
@@ -106,8 +107,8 @@ const DetailContainer = styled.div`
   background-size: cover;
 `;
 
-export default function Detial({ item }) {
-  const [open, setOpen] = useState(false);
+export default function Detial({ item, onChan, poster, goBack, goHome }) {
+  console.log(poster);
   const {
     poster_path,
     original_title,
@@ -125,14 +126,14 @@ export default function Detial({ item }) {
     >
       <Darker>
         <InfoContainer>
-          <InfoImg open={open} onClick={() => setOpen(!open)}>
+          <InfoImg poster={poster} onClick={onChan}>
             <img
               src={`https://image.tmdb.org/t/p/original/${poster_path}`}
               alt=""
             />
           </InfoImg>
           <InfoSummary>
-            <button open={open} onClick={() => setOpen(!open)}>
+            <button poster={poster} onClick={onChan}>
               포스터
             </button>
             <Title>
@@ -151,6 +152,8 @@ export default function Detial({ item }) {
           </InfoSummary>
         </InfoContainer>
       </Darker>
+      <Goback onClick={goBack}>Back</Goback>
+      <GoHome onClick={goHome}>Home</GoHome>
     </DetailContainer>
   );
 }

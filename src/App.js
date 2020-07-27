@@ -28,6 +28,26 @@ export const Loading = styled.div`
     width: 200px;
   }
 `;
+export const Goback = styled.button`
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  &:hover {
+    color: gray;
+  }
+`;
+
+export const GoHome = styled(Goback)`
+  left: auto;
+  right: 20px;
+`;
 
 function App() {
   return (

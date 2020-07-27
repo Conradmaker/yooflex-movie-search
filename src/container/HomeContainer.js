@@ -4,6 +4,8 @@ import useAsync from "../hooks/useAsync";
 import Home from "../componetns/Home";
 import img from "../componetns/img/Preloader_1.gif";
 import { Loading } from "../App";
+import { useDispatch } from "react-redux";
+import { searchText } from "../modules/movie";
 
 async function fetchRanking(date) {
   const response = await axios.get(
@@ -21,6 +23,9 @@ const day = new Date().getDate() - 1;
 const date = year + "" + month + day;
 
 export default function HomeContainer() {
+  const dispatch = useDispatch();
+  const onChan = (e) => dispatch(searchText(e.target.value));
+
   const [state] = useAsync(() => fetchRanking(date), [date]);
   const { loading, data: movies, error } = state;
 
@@ -37,7 +42,7 @@ export default function HomeContainer() {
   console.log(boxOfficeResult.showRange);
   return (
     <div>
-      <Home movies={boxOfficeResult} movie={movie} />
+      <Home movies={boxOfficeResult} movie={movie} onChan={onChan} />
     </div>
   );
 }

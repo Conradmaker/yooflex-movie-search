@@ -15,10 +15,12 @@ async function fetchInfo(text) {
   return response.data;
 }
 
-export default function InformationContainer({ match }) {
+export default function InformationContainer({ match, history }) {
   const { text } = match.params;
   const [state] = useAsync(() => fetchInfo(text), [text]);
-
+  const goHome = () => {
+    history.push("/");
+  };
   const { loading, data: lists, error } = state;
   console.log(lists);
   if (loading)
@@ -33,7 +35,7 @@ export default function InformationContainer({ match }) {
   console.log(results);
   return (
     <div>
-      <Information lists={lists} items={results} text={text} />
+      <Information lists={lists} items={results} text={text} goHome={goHome} />
     </div>
   );
 }
