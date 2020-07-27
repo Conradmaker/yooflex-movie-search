@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import useAsync from "../hooks/useAsync";
 import Information from "../componetns/Information";
+import img from "../componetns/img/Preloader_1.gif";
+import { Loading } from "../App";
 
 async function fetchInfo(text) {
   const response = await axios.get(
@@ -19,7 +21,12 @@ export default function InformationContainer({ match }) {
 
   const { loading, data: lists, error } = state;
   console.log(lists);
-  if (loading) return <div>로딩중...</div>;
+  if (loading)
+    return (
+      <Loading>
+        Loading <img src={img} alt="" />
+      </Loading>
+    );
   if (error) return <div>에러...</div>;
   if (!lists) return <div>데이터 없음</div>;
   const { results } = lists;

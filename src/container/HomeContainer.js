@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import useAsync from "../hooks/useAsync";
 import Home from "../componetns/Home";
+import img from "../componetns/img/Preloader_1.gif";
+import { Loading } from "../App";
 
 async function fetchRanking(date) {
   const response = await axios.get(
@@ -22,7 +24,12 @@ export default function HomeContainer() {
   const [state] = useAsync(() => fetchRanking(date), [date]);
   const { loading, data: movies, error } = state;
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <Loading>
+        Loading <img src={img} alt="" />
+      </Loading>
+    );
   if (error) return <div>에러발생</div>;
   if (!movies) return <div>데이터 없음</div>;
   const { boxOfficeResult } = movies;

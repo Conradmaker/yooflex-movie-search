@@ -52,7 +52,16 @@ const ListItem = styled.div`
     height: 210px;
     position: relative;
     top: -40px;
-    box-shadow: 2px 2px 8px black;
+    box-shadow: 1px 2px 8px black;
+  }
+  &:hover {
+    background: #484848;
+    box-shadow: 0px 0px 15px black;
+    border: 1px solid gray;
+  }
+
+  @media (max-width: 1024px) {
+    margin-bottom: 35px;
   }
 `;
 
@@ -65,6 +74,11 @@ const ListContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.section`
@@ -103,9 +117,23 @@ function ListItems({
   vote_average,
   id,
   backdrop_path,
+  overview,
 }) {
   return (
-    <Link to={`/detail${backdrop_path}`}>
+    <Link
+      to={{
+        pathname: "/detail",
+        state: {
+          poster_path,
+          original_title,
+          title,
+          release_date,
+          vote_average,
+          backdrop_path,
+          overview,
+        },
+      }}
+    >
       <ListItem>
         <img
           src={
@@ -151,6 +179,7 @@ function SearchList({ items }) {
           release_date={item.release_date}
           vote_average={item.vote_average}
           backdrop_path={item.backdrop_path}
+          overview={item.overview}
         />
       ))}
     </ListContainer>

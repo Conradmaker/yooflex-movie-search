@@ -1,9 +1,9 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import HomeContainer from "./container/HomeContainer";
 import InformationContainer from "./container/InformationContainer";
 import { Route } from "react-router-dom";
-import Detial from "./componetns/Detial";
+import DetailContainer from "./container/DetailContainer";
 
 const Global = createGlobalStyle`
 body{
@@ -12,13 +12,30 @@ body{
 }
 `;
 
+export const Loading = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: white;
+  color: #424242;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 200px;
+  }
+`;
+
 function App() {
   return (
     <>
       <Global />
       <Route path="/" component={HomeContainer} exact />
       <Route path="/search/:text" component={InformationContainer} />
-      <Route path="/detail/:id" component={Detial} />
+      <Route path="/detail/" component={DetailContainer} />
     </>
   );
 }

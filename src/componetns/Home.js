@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+
+const slide = keyframes`
+from{
+  transform:translateY(-260px)
+}
+to{
+  transform:translateY(0px)
+}
+`;
 
 const RankingList = styled.ul`
   font-size: 20px;
@@ -31,6 +40,9 @@ const RankingDate = styled.h2`
     font-weight: 400;
     font-size: 16px;
   }
+  @media (max-width: 1024px) {
+    margin: 5px 0;
+  }
 `;
 const Ranking = styled.section`
   display: flex;
@@ -55,6 +67,21 @@ const Search = styled.form`
     background: #e0e0e0;
     cursor: pointer;
   }
+  @media (max-width: 1024px) {
+    input {
+      width: 250px;
+      margin-bottom: 20px;
+      &:focus {
+        width: 90%;
+        position: fixed;
+        top: 350px;
+        left: 10px;
+        right: 10px;
+        box-shadow: 0 0 40px black;
+        animation: ${slide} 10s ease-in;
+      }
+    }
+  }
 `;
 const Title = styled.div`
   margin: 0 auto;
@@ -66,19 +93,33 @@ const Title = styled.div`
     text-align: center;
     text-shadow: 0 0 15px #6d6d6d;
   }
+  @media (max-width: 1024px) {
+    margin-bottom: 10px;
+    h1 {
+      font-size: 50px;
+    }
+  }
 `;
+
 const LeftBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-right: 100px;
+  @media (max-width: 1024px) {
+    margin-right: 0;
+    margin-top: 15px;
+  }
 `;
 const HomeContainer = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 function ListItem({ rank, movieNm, audiAcc, audiCnt }) {
